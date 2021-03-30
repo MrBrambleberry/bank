@@ -1,0 +1,1 @@
+A banking kata inspired by this challenge: https://katalyst.codurance.com/bank
