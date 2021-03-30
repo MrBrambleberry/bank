@@ -1,20 +1,36 @@
 package com.Bank;
 
+import com.Bank.enums.TransactionType;
 import com.Bank.interfaces.*;
+import java.util.ArrayList;
 
 public class Account implements AccountService {
+    int accountTotal;
+    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+    TransactionDate transactionDate = new TransactionDate();
 
     public void deposit(int amount) {
+        this.accountTotal += amount;
+        Transaction transaction = new Transaction(transactionDate.getDate(), amount, accountTotal,
+                TransactionType.DEPOSIT);
+        this.transactions.add(0, transaction);
     };
 
     public void withdraw(int amount) {
+        this.accountTotal -= amount;
+        Transaction transaction = new Transaction(transactionDate.getDate(), amount, accountTotal,
+                TransactionType.WITHDRAWL);
+        this.transactions.add(0, transaction);
     };
 
     public void printStatement() {
         System.out.println("Date || Amount || Balance");
-        System.out.println("14/01/2012 || -500 || 2500");
-        System.out.println("13/01/2012 || 2000 || 3000");
-        System.out.println("10/01/2012 || 1000 || 1000");
+        for (Transaction transaction : this.transactions) {
+            System.out.println(transaction.getLineItem());
+        }
     }
 
+    public void setTransactionDate(TransactionDate td) {
+        this.transactionDate = td;
+    }
 }

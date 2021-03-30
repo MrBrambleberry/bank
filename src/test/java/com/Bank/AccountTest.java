@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.PrintStream;
 import java.io.ByteArrayOutputStream;
 
@@ -24,7 +27,12 @@ public class AccountTest {
 
     @Test
     void it_prints_expected_transactions_to_the_console() {
+
         Account account = new Account();
+        TransactionDate td = mock(TransactionDate.class);
+        when(td.getDate()).thenReturn("10/01/2012").thenReturn("13/01/2012").thenReturn("14/01/2012");
+        account.setTransactionDate(td);
+
         account.deposit(1000);
         account.deposit(2000);
         account.withdraw(500);
